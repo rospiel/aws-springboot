@@ -16,3 +16,6 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true
+
+springdoc:
+  packages-to-scan: com.apiproduct.controller

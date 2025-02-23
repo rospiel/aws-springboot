@@ -23,7 +23,7 @@ public class ProductSaveUseCaseImpl implements ProductSaveUseCase {
 
     @Override
     public ProductDTO save(ProductRequestDTO dto) {
-        return CompletableFuture.supplyAsync(() -> productRepository.findFirstByName(dto.getName()))
+        return CompletableFuture.supplyAsync(() -> productRepository.findFirstByName(dto.getName().trim()))
                 .thenCompose((previous) ->  persist(dto, previous))
                 .thenApply(productMapper::toProductDTOBy)
                 .join();
