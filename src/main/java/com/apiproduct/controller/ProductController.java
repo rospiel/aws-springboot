@@ -12,9 +12,12 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +26,7 @@ import java.util.List;
 @RequestMapping("product")
 @RequiredArgsConstructor
 @Tag(name = "Products")
+@Validated
 public class ProductController {
 
     private final ProductSaveUseCase productSaveUseCase;
@@ -42,7 +46,7 @@ public class ProductController {
     @Operation(summary = "Save product", description = "Save a new product if not exist")
     @PostMapping(value = Constants.VERSION_1, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductDTO save(@io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Properties of a product to persist", required = true) @RequestBody ProductRequestDTO request) {
+    public ProductDTO save(@io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Properties of a product to persist", required = true) @Valid @RequestBody ProductRequestDTO request) {
         return productSaveUseCase.save(request);
     }
 
@@ -57,7 +61,7 @@ public class ProductController {
 
     })
     @DeleteMapping(Constants.VERSION_1 + "/id/{productId}")
-    public void delete(@Parameter(description = "Id of a product", example = "1", required = true) @PathVariable String productId) {
+    public void delete(@Parameter(description = "Id of a product", example = "1", required = true) @Pattern(regexp = "^[0-9]*$", message = "productId must be numerical") @PathVariable String productId) {
         productDeleteUseCase.delete(productId);
     }
 }
