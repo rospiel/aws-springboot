@@ -15,12 +15,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("product")
@@ -39,8 +42,10 @@ public class ProductController {
             })
     })
     @GetMapping(value = Constants.VERSION_1, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ProductDTO> searchAll() {
-        return productSearchAllUseCase.searchAll();
+    public ResponseEntity<List<ProductDTO>> searchAll() {
+        return ResponseEntity.ok()
+                .cacheControl(CacheControl.maxAge(1, TimeUnit.MINUTES))
+                .body(productSearchAllUseCase.searchAll());
     }
 
     @Operation(summary = "Save product", description = "Save a new product if not exist")

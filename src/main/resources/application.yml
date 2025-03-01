@@ -19,3 +19,7 @@ spring:
 
 springdoc:
   packages-to-scan: com.apiproduct.controller
+
+caching:
+  spring:
+    productListTTL: 120000
