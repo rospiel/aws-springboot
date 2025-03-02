@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: 'apiProduct'
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: root
+    password: 'root'
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+
+springdoc:
+  packages-to-scan: com.apiproduct.controller
+
+caching:
+  spring:
+    productListTTL: 120000
