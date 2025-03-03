@@ -61,11 +61,12 @@ public class ProductController {
      * @param productId
      */
     @Operation(summary = "Remove product", description = "Remove a product if exist", responses = {
-            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "204"),
             @ApiResponse(responseCode = "400", description = "Invalid productId", content = @Content(schema = @Schema))
 
     })
     @DeleteMapping(Constants.VERSION_1 + "/id/{productId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@Parameter(description = "Id of a product", example = "1", required = true) @Pattern(regexp = "^[0-9]*$", message = "productId must be numerical") @PathVariable String productId) {
         productDeleteUseCase.delete(productId);
     }
