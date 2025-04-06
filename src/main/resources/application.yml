@@ -4,9 +4,8 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    platform: mysql
-    url: jdbc:mysql://db-product.c1y0qqm4gcce.us-east-1.rds.amazonaws.com:3306/dbproduct?useSSL=false
-    username: admin
+    url: jdbc:mysql://localhost:3306/auth?autoReconnect=true&createDatabaseIfNotExist=true
+    username: root
     password: ${DB_PASSWORD} #Environment variable
     hikari:
       maximum-pool-size: 5
@@ -20,6 +19,15 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+
+# Resource Server Opaque Token
+  security:
+    oauth2:
+      resourceserver:
+        opaque-token.introspection-uri: http://localhost:8081/oauth2/introspect
+        # ENVIRONMENT TOKEN_CLI_ID=example;TOKEN_CLI_SECRET=example;DB_PASSWORD=example
+        opaque-token.client-id: ${TOKEN_CLI_ID}
+        opaque-token.client-secret: ${TOKEN_CLI_SECRET}
 
 springdoc:
   packages-to-scan: com.apiproduct.controller

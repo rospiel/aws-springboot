@@ -29,10 +29,6 @@ public class ProductSaveUseCaseImpl implements ProductSaveUseCase {
                 .join();
     }
 
-    private String get() {
-        return "RELO";
-    }
-
     private CompletableFuture<ProductEntity> persist(ProductRequestDTO dto, Optional<ProductEntity> entity) {
         if (entity.isPresent()) {
             log.info("Product of name [{}] already registered", dto.getName());

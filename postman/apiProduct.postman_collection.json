@@ -1,0 +1,38 @@
+{
+	"info": {
+		"_postman_id": "cf717502-5873-4fde-ac72-77bfb04d0072",
+		"name": "apiProduct",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3329989"
+	},
+	"item": [
+		{
+			"name": "Search All Products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_resource-server}}/product/v1",
+					"host": [
+						"{{url_resource-server}}"
+					],
+					"path": [
+						"product",
+						"v1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
