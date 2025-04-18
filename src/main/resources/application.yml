@@ -20,7 +20,6 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
 
-# Resource Server Opaque Token
   security:
     oauth2:
       resourceserver:
@@ -28,6 +27,8 @@ spring:
         # ENVIRONMENT TOKEN_CLI_ID=example;TOKEN_CLI_SECRET=example;DB_PASSWORD=example
         opaque-token.client-id: ${TOKEN_CLI_ID}
         opaque-token.client-secret: ${TOKEN_CLI_SECRET}
+        jwt:
+          jwk-set-uri: http://localhost:8081/oauth2/jwks
 
 springdoc:
   packages-to-scan: com.apiproduct.controller
